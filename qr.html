@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Box</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --white: #ffffff;
+      --orange: #fd7e14;
+      --black: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--danger), var(--orange));
+      font-family: 'Roboto', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .qr-container {
+      background-color: var(--black);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      transition: transform 0.3s ease;
+    }
+
+    .qr-container:hover {
+      transform: scale(1.03);
+    }
+
+    .qr-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--warning);
+      text-shadow: 2px 2px var(--danger);
+    }
+
+    .qr-box {
+      background-color: var(--white);
+      border: 5px solid var(--warning);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .qr-box img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .footer-text {
+      color: var(--warning);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 500px) {
+      .qr-box img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .qr-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="qr-container">
+    <h1 class="qr-title">Scan Me</h1>
+    <div class="qr-box">
+      <!-- Replace this image with a real QR code if needed -->
+      <img src="img/Screenshot 2025-08-07 181157.png" alt="QR Code">
+    </div>
+    <p class="footer-text">Point your camera to scan this QR code</p>
+  </div>
+</body>
+</html>
