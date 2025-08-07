@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Online - VadaPav Wala</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Custom animation for fade-in */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-800 {
+            animation-delay: 0.8s;
+        }
+
+        /* Hover scale effect */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover,
+        .hover-scale:focus {
+            transform: scale(1.05);
+        }
+
+        /* Pulse animation for buttons */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Focus styles for accessibility */
+        a:focus,
+        button:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 3px solid #ffcc00;
+            outline-offset: 2px;
+        }
+
+        /* Tailwind-equivalent styles */
+        .bg-gradient-to-b {
+            background: linear-gradient(to bottom, #fefcbf, #fca5a5);
+        }
+
+        .bg-gradient-to-r {
+            background: linear-gradient(to right, #dc2626, #eab308);
+        }
+
+        .tracking-tight {
+            letter-spacing: -0.025em;
+        }
+
+        .shadow-xl {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .bg-opacity-60 {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .drop-shadow-lg {
+            filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Hamburger icon styles */
+        .hamburger {
+            display: none;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover and focus styles for consistency */
+        .hover-bg-warning-dark:hover,
+        .focus-bg-warning-dark:focus {
+            background-color: #e0a800;
+        }
+
+        .hover-bg-light:hover,
+        .focus-bg-light:focus {
+            background-color: #e9ecef;
+        }
+
+        .hover-bg-danger-dark:hover,
+        .focus-bg-danger-dark:focus {
+            background-color: #c82333;
+        }
+
+        .hover-text-warning-dark:hover,
+        .focus-text-warning-dark:focus {
+            color: #e0a800;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 576px) {
+
+            /* Navigation */
+            nav .container {
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+            }
+
+            nav h1 {
+                font-size: 1.5rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                cursor: pointer;
+                position: absolute;
+                right: 10%;
+                transform: translateX(-50%);
+                top: 0.2rem;
+                z-index: 1000;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #dc2626;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem;
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            nav .nav-link {
+                font-size: 1rem;
+                padding: 0.5rem;
+                text-align: center;
+            }
+
+            nav .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            nav .d-flex {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            /* Hero Section */
+            .bg-cover {
+                height: 18rem;
+            }
+
+            .bg-cover h2 {
+                font-size: 2rem;
+            }
+
+            .bg-cover p {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+
+            .bg-cover .bg-opacity-60 {
+                padding: 1.5rem;
+            }
+
+            /* Order Form Section */
+            .container h2 {
+                font-size: 1.5rem;
+            }
+
+            #order-form {
+                padding: 1rem;
+            }
+
+            #order-form .form-control,
+            #order-form .form-select {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            #order-form textarea {
+                min-height: 100px;
+            }
+
+            #order-form .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Popular Items Section */
+            .bg-gradient-to-r h2 {
+                font-size: 1.5rem;
+            }
+
+            .row.row-cols-1.row-cols-md-3 {
+                row-gap: 1rem;
+            }
+
+            .row .bg-white {
+                padding: 1rem;
+                height: auto !important;
+            }
+
+            .row img {
+                height: 150px !important;
+                width: 100%;
+            }
+
+            .row h3 {
+                font-size: 1.2rem;
+            }
+
+            .row p {
+                font-size: 0.9rem;
+            }
+
+            .row .text-danger.fw-bold {
+                font-size: 1rem;
+            }
+
+            .bg-gradient-to-r a {
+                font-size: 0.9rem;
+            }
+
+            /* Delivery & Pickup Section */
+            .container .d-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container .d-flex>div:first-child {
+                width: 100% !important;
+                height: 200px !important;
+            }
+
+            .container .w-md-50 {
+                width: 100% !important;
+            }
+
+            .container .fs-5 {
+                font-size: 1rem;
+            }
+
+            .container .d-flex.gap-5 {
+                gap: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Footer */
+            footer p,
+            footer a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (min-width: 577px) and (max-width: 768px) {
+
+            /* Navigation */
+            nav .container {
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+            }
+
+            nav h1 {
+                font-size: 2rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.75rem;
+                cursor: pointer;
+                position: absolute;
+                right: 8%;
+                transform: translateX(-50%);
+                top: 0.2rem;
+                z-index: 1000;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #dc2626;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem;
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            nav .nav-link {
+                font-size: 1.1rem;
+                padding: 0.75rem;
+                text-align: center;
+            }
+
+            nav .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            nav .d-flex {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            /* Hero Section */
+            .bg-cover {
+                height: 20rem;
+            }
+
+            .bg-cover h2 {
+                font-size: 2.5rem;
+            }
+
+            .bg-cover p {
+                font-size: 1.1rem;
+                max-width: 80%;
+            }
+
+            .bg-cover .bg-opacity-60 {
+                padding: 2rem;
+            }
+
+            /* Order Form Section */
+            .container h2 {
+                font-size: 1.8rem;
+            }
+
+            #order-form {
+                padding: 1.5rem;
+            }
+
+            #order-form .form-control,
+            #order-form .form-select {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            #order-form textarea {
+                min-height: 120px;
+            }
+
+            #order-form .btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            /* Popular Items Section */
+            .bg-gradient-to-r h2 {
+                font-size: 1.8rem;
+            }
+
+            .row.row-cols-1.row-cols-md-3 {
+                row-cols-2;
+                row-gap: 1.5rem;
+            }
+
+            .row .bg-white {
+                padding: 1.5rem;
+                height: auto !important;
+            }
+
+            .row img {
+                height: 200px !important;
+                width: 100%;
+            }
+
+            .row h3 {
+                font-size: 1.4rem;
+            }
+
+            .row p {
+                font-size: 1rem;
+            }
+
+            .row .text-danger.fw-bold {
+                font-size: 1.1rem;
+            }
+
+            .bg-gradient-to-r a {
+                font-size: 1rem;
+            }
+
+            /* Delivery & Pickup Section */
+            .container .d-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container .d-flex>div:first-child {
+                width: 100% !important;
+                height: 300px !important;
+            }
+
+            .container .w-md-50 {
+                width: 100% !important;
+            }
+
+            .container .fs-5 {
+                font-size: 1.1rem;
+            }
+
+            .container .d-flex.gap-5 {
+                gap: 1.5rem;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container .btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            /* Footer */
+            footer p,
+            footer a {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+
+            .nav-menu {
+                display: flex !important;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFD700;
+            /* Primary yellow background */
+            color: #1C2526;
+            /* Dark text for contrast */
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top:hover {
+            background-color: #FFFFFF;
+            /* White background on hover */
+            color: #1C2526;
+            /* Maintain dark text */
+            transform: translateY(-2px);
+            /* Slight lift effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top:focus {
+            outline: none;
+            background-color: #FFFFFF;
+            /* White background on focus */
+            color: #1C2526;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
+            /* Focus ring */
+        }
+    </style>
+</head>
+
+<body id="top" class="font-sans bg-gradient-to-b overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="bg-danger text-white p-4 sticky-top shadow-lg" role="navigation" aria-label="Main navigation">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <h1 class="display-6 fw-bold animate-fadeInUp">VadaPav Wala</h1>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav nav-menu flex-column flex-md-row gap-2 gap-md-4 mt-4 mt-md-0">
+                <li class="nav-item"><a href="index.html" class="nav-link text-white" aria-label="Home page">Home</a>
+                </li>
+                <li class="nav-item"><a href="about.html" class="nav-link text-white" aria-label="About page">About</a>
+                </li>
+                <li class="nav-item"><a href="menu.html" class="nav-link text-white" aria-label="Menu page">Menu</a>
+                </li>
+                <li class="nav-item"><a href="locations.html" class="nav-link text-white"
+                        aria-label="Locations page">Locations</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link text-white"
+                        aria-label="Contact page">Contact</a></li>
+                <li class="nav-item"><a href="order.html" class="nav-link text-warning"
+                        aria-label="Current page: Order Online">Order Online</a></li>
+                <li class="nav-item d-flex gap-2 mt-2 mt-md-0">
+                    <a href="login.html" target="_blank"
+                        class="btn bg-warning text-black px-4 py-2 rounded-pill hover-bg-warning-dark focus-bg-warning-dark transition-all duration-300"
+                        aria-label="Log in">Log In</a>
+                    <a href="signup.html" target="_blank"
+                        class="btn bg-white text-danger px-4 py-2 rounded-pill hover-bg-light focus-bg-light transition-all duration-300"
+                        aria-label="Sign up">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-cover bg-center"
+        style="height: 24rem; background-image: url('https://source.unsplash.com/random/1600x900/?vada-pav');">
+        <div class="d-flex align-items-center justify-content-center h-100 position-relative">
+            <div class="text-center text-white bg-opacity-60 p-5 rounded-3 animate-fadeInUp">
+                <h2 class="fs-1 fw-bold mb-4 drop-shadow-lg">Order Online</h2>
+                <p class="fs-5 mx-auto" style="max-width: 28rem;">Craving a vada pav? Order now for delivery or pickup
+                    from your nearest outlet!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Section -->
+    <section class="container mx-auto py-5 animate-fadeInUp delay-200" role="region" aria-label="Order Form">
+        <h2 class="fs-2 fw-bold text-center mb-4 text-danger">Place Your Order</h2>
+        <div id="order-form" class="bg-white p-4 rounded-3 shadow-xl mx-auto hover-scale" style="max-width: 42rem;">
+            <div class="row g-3" role="form" aria-label="Order form (non-functional)">
+                <div class="col-12">
+                    <label for="name" class="d-block text-secondary fw-semibold">Name</label>
+                    <input type="text" id="name"
+                        class="form-control p-3 border border-secondary-subtle rounded-3 focus-border-danger transition-all duration-300"
+                        placeholder="Your Name" aria-required="true">
+                </div>
+                <div class="col-12">
+                    <label for="phone" class="d-block text-secondary fw-semibold">Phone</label>
+                    <input type="tel" id="phone"
+                        class="form-control p-3 border border-secondary-subtle rounded-3 focus-border-danger transition-all duration-300"
+                        placeholder="Your Phone Number" aria-required="true">
+                </div>
+                <div class="col-12">
+                    <label for="location" class="d-block text-secondary fw-semibold">Select Outlet</label>
+                    <select id="location"
+                        class="form-select p-3 border border-secondary-subtle rounded-3 focus-border-danger transition-all duration-300"
+                        aria-required="true">
+                        <option value="colaba">Colaba Outlet</option>
+                        <option value="bandra">Bandra Outlet</option>
+                        <option value="juhu">Juhu Outlet</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="order" class="d-block text-secondary fw-semibold">Your Order</label>
+                    <textarea id="order" rows="5"
+                        class="form-control p-3 border border-secondary-subtle rounded-3 focus-border-danger transition-all duration-300"
+                        placeholder="E.g., 2 Classic Vada Pav, 1 Masala Fries" aria-required="true"></textarea>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="button"
+                        class="btn bg-danger text-white px-5 py-3 rounded-pill fs-5 fw-semibold hover-bg-danger-dark focus-bg-danger-dark transition-all duration-300 animate-pulse"
+                        aria-label="Place order (non-functional)">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Items Section -->
+    <section class="bg-gradient-to-r py-5 animate-fadeInUp delay-400" role="region" aria-label="Popular Items">
+        <div class="container mx-auto">
+            <h2 class="fs-2 fw-bold text-center mb-4 text-white">Popular Picks</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="bg-white p-4 rounded-3 shadow-xl hover-scale">
+                        <img src="https://ministryofcurry.com/wp-content/uploads/2024/06/vada-pav-9.jpg"
+                            alt="Classic Vada Pav" class="w-100 h-48 object-fit-cover rounded-3 mb-3" loading="lazy">
+                        <h3 class="fs-5 fw-semibold text-danger">Classic Vada Pav</h3>
+                        <p class="text-muted">Spiced potato fritter with tangy chutneys.</p>
+                        <p class="text-danger fw-bold mt-2">₹50</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="bg-white p-4 rounded-3 shadow-xl hover-scale">
+                        <img src="https://dms.mydukaan.io/original/jpeg/182206/74ccff9b-7f38-469e-8fca-68a4551fdfb4.png"
+                            alt="Cheese Burst Vada Pav" class="w-100 h-48 object-fit-cover rounded-3 mb-3"
+                            loading="lazy">
+                        <h3 class="fs-5 fw-semibold text-danger">Cheese Burst Vada Pav</h3>
+                        <p class="text-muted">Loaded with gooey cheese inside.</p>
+                        <p class="text-danger fw-bold mt-2">₹70</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="bg-white p-4 rounded-3 shadow-xl hover-scale">
+                        <img src="img/combo1.jpg" alt="Classic Combo" class="w-100 h-48 object-fit-cover rounded-3 mb-3"
+                            loading="lazy">
+                        <h3 class="fs-5 fw-semibold text-danger">Classic Combo</h3>
+                        <p class="text-muted">Classic Vada Pav + Masala Fries + Lime Soda.</p>
+                        <p class="text-danger fw-bold mt-2">₹110</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="menu.html" target="_blank"
+                    class="text-warning fw-semibold text-decoration-none hover-text-warning-dark focus-text-warning-dark transition-all duration-300"
+                    aria-label="View full menu">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery & Pickup Section -->
+    <section class="container mx-auto py-5 animate-fadeInUp delay-600" role="region" aria-label="Delivery and Pickup">
+        <h2 class="fs-2 fw-bold text-center mb-4 text-danger">Delivery & Pickup</h2>
+        <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+            <div class="w-100" style="height: 500px; overflow: hidden;">
+                <img src="img/delivery.png" alt="Delivery service" class="img-fluid rounded-5"
+                    style="object-fit: contain; height: 100%; width: 100%;" loading="lazy">
+            </div>
+            <div class="w-100 w-md-50">
+                <p class="fs-5 text-secondary">Choose delivery to get your vada pav fresh at your doorstep or opt for
+                    pickup at any of our outlets. Fast, convenient, and delicious!</p>
+                <div class="mt-3 d-flex gap-5">
+                    <a href="locations.html" target="_blank"
+                        class="btn bg-danger text-white px-5 py-3 rounded-pill fs-5 fw-semibold hover-bg-danger-dark focus-bg-danger-dark transition-all duration-300 animate-pulse"
+                        aria-label="Find locations">Find Locations</a>
+                    <a href="#order-form"
+                        class="btn bg-warning text-black px-5 py-3 rounded-pill fs-5 fw-semibold hover-bg-warning-dark focus-bg-warning-dark transition-all duration-300 animate-pulse"
+                        aria-label="Go to order form">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-danger text-white text-center py-4" role="contentinfo">
+        <p class="fs-5 animate-fadeInUp">© 2025 VadaPav Wala. Made with ❤️ in Mumbai.</p>
+        <a href="#top" class="back-to-top" aria-label="Back to top">Back to Top</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

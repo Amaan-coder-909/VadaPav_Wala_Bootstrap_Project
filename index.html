@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VadaPav Wala - Mumbai's Finest</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Custom animation for fade-in */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        /* Custom animation for scale hover */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        /* Pulse animation for buttons */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Tailwind-equivalent styles */
+        .bg-gradient-to-b {
+            background: linear-gradient(to bottom, #fefcbf, #fca5a5);
+        }
+
+        .bg-gradient-to-r {
+            background: linear-gradient(to right, #dc2626, #eab308);
+        }
+
+        .tracking-tight {
+            letter-spacing: -0.025em;
+        }
+
+        .shadow-xl {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .animation-delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .animation-delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .animation-delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        .animation-delay-800 {
+            animation-delay: 0.8s;
+        }
+
+        .drop-shadow-lg {
+            filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+        }
+
+        .bg-opacity-60 {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Hamburger icon styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            z-index: 1000;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger:hover {
+            opacity: 0.8;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 5px auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 576px) {
+            nav .container {
+                flex-direction: column;
+                align-items: flex-start;
+                position: relative;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            nav h1 {
+                font-size: 1.5rem;
+                text-align: center;
+                width: 100%;
+                padding-right: 2rem;
+                /* Space for hamburger */
+            }
+
+            .hamburger {
+                display: block;
+                top: 1.25rem;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #dc2626;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem;
+                z-index: 999;
+                margin-top: 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            nav .nav-link {
+                font-size: 1rem;
+                padding: 0.75rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav .btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+                margin-top: 0.5rem;
+            }
+
+            nav .d-flex {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .bg-cover {
+                min-height: 60vh;
+                background-position: center;
+            }
+
+            .bg-cover .text-center {
+                padding: 1.5rem;
+            }
+
+            .bg-cover h2 {
+                font-size: 1.8rem;
+            }
+
+            .bg-cover p {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+
+            .bg-cover .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .container h2 {
+                font-size: 1.5rem;
+            }
+
+            .container p.fs-5 {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+
+            .row-cols-md-4 {
+                row-gap: 1rem;
+            }
+
+            .col .bg-white {
+                padding: 0.75rem;
+            }
+
+            .col img {
+                height: 150px !important;
+            }
+
+            .col h3 {
+                font-size: 1.2rem;
+            }
+
+            .col p {
+                font-size: 0.9rem;
+            }
+
+            .container .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+            }
+
+            .hamburger {
+                top: 0.65rem;
+            }
+        }
+
+        @media (min-width: 577px) and (max-width: 768px) {
+            nav .container {
+                flex-direction: column;
+                align-items: flex-start;
+                position: relative;
+                padding-top: 1.25rem;
+                padding-bottom: 1.25rem;
+            }
+
+            nav h1 {
+                font-size: 2rem;
+                width: 100%;
+                text-align: center;
+                padding-right: 3rem;
+                /* Space for hamburger */
+            }
+
+            .hamburger {
+                display: block;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #dc2626;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1.25rem;
+                z-index: 999;
+                margin-top: 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            nav .nav-link {
+                font-size: 1.1rem;
+                padding: 0.85rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav .btn {
+                padding: 0.85rem 1.5rem;
+                font-size: 1rem;
+                margin-top: 0.75rem;
+            }
+
+            nav .d-flex {
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+                margin-top: 0.75rem;
+            }
+
+            .bg-cover {
+                min-height: 70vh;
+            }
+
+            .bg-cover .text-center {
+                padding: 2rem;
+            }
+
+            .bg-cover h2 {
+                font-size: 2.2rem;
+            }
+
+            .bg-cover p {
+                font-size: 1.2rem;
+                max-width: 80%;
+            }
+
+            .bg-cover .btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .container h2 {
+                font-size: 1.8rem;
+            }
+
+            .container p.fs-5 {
+                font-size: 1.1rem;
+                max-width: 80%;
+            }
+
+            .row-cols-md-4 {
+                row-cols-2;
+                row-gap: 1.5rem;
+            }
+
+            .col img {
+                height: 200px !important;
+            }
+
+            .col h3 {
+                font-size: 1.4rem;
+            }
+
+            .col p {
+                font-size: 1rem;
+            }
+
+            .container .btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            footer p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .hamburger {
+                display: none;
+            }
+
+            .nav-menu {
+                display: flex !important;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFD700;
+            /* Primary yellow background */
+            color: #1C2526;
+            /* Dark text for contrast */
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top:hover {
+            background-color: #FFFFFF;
+            /* White background on hover */
+            color: #1C2526;
+            /* Maintain dark text */
+            transform: translateY(-2px);
+            /* Slight lift effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top:focus {
+            outline: none;
+            background-color: #FFFFFF;
+            /* White background on focus */
+            color: #1C2526;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
+            /* Focus ring */
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-gradient-to-b overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="bg-danger text-white p-3 p-md-4 sticky-top shadow-lg position-relative" role="navigation"
+        aria-label="Main navigation">
+        <div
+            class="container d-flex flex-column flex-md-row justify-content-between align-items-center position-relative">
+            <h1 class="display-6 fw-bold animate-fadeInUp">VadaPav Wala</h1>
+            <div class="hamburger" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav nav-menu flex-column flex-md-row gap-2 gap-md-4 mt-4 mt-md-0">
+                <li class="nav-item"><a href="index.html" class="nav-link text-warning" aria-label="Home page">Home</a>
+                </li>
+                <li class="nav-item"><a href="about.html" class="nav-link text-white"
+                        aria-label="Current page: About">About</a></li>
+                <li class="nav-item"><a href="menu.html" class="nav-link text-white" aria-label="Menu page">Menu</a>
+                </li>
+                <li class="nav-item"><a href="locations.html" class="nav-link text-white"
+                        aria-label="Locations page">Locations</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link text-white"
+                        aria-label="Contact page">Contact</a></li>
+                <li class="nav-item"><a href="order.html" class="nav-link text-white"
+                        aria-label="Order Online page">Order Online</a></li>
+                <li class="nav-item d-flex gap-2 mt-2 mt-md-0">
+                    <a href="login.html" target="_blank"
+                        class="btn bg-warning text-black px-4 py-2 rounded-pill hover-bg-warning-dark focus-bg-warning-dark transition-all duration-300"
+                        aria-label="Log in">Log In</a>
+                    <a href="signup.html" target="_blank"
+                        class="btn bg-white text-danger px-4 py-2 rounded-pill hover-bg-light focus-bg-light transition-all duration-300"
+                        aria-label="Sign up">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-cover bg-center vh-100 d-flex align-items-center justify-content-center position-relative"
+        style="background-image: url('https://source.unsplash.com/random/1600x900/?vada-pav');">
+        <div class="text-center text-white bg-opacity-60 p-5 rounded-3 animate-fadeInUp">
+            <h2 class="fs-1 fw-bold mb-4 drop-shadow-lg">Mumbai's Favorite Snack</h2>
+            <p class="fs-5 mb-4 mx-auto" style="max-width: 28rem;">Crispy, spicy, and bursting with flavor – the
+                ultimate street food experience!</p>
+            <a href="menu.html" target="_blank"
+                class="btn bg-warning text-black px-5 py-3 rounded-pill fs-5 fw-semibold hover-bg-warning-dark transition-all duration-300 animate-pulse">View
+                Menu</a>
+        </div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section class="container mx-auto py-5">
+        <h2 class="fs-2 fw-bold text-center mb-4 text-danger animate-fadeInUp">About VadaPav Wala</h2>
+        <p class="fs-5 text-center mx-auto animate-fadeInUp animation-delay-200" style="max-width: 42rem;">Vada Pav is
+            Mumbai's iconic street food. A spicy potato fritter tucked inside a soft pav, served with chutneys and fried
+            green chili – simple, yet irresistible. Discover our story and passion for authentic flavors.</p>
+        <div class="text-center mt-4">
+            <a href="about.html" target="_blank"
+                class="text-danger fs-5 fw-semibold text-decoration-none hover-text-danger-dark transition-all duration-300 animate-fadeInUp animation-delay-400">Learn
+                More</a>
+        </div>
+    </section>
+
+    <!-- Menu Preview Section -->
+    <section class="bg-gradient-to-r py-5">
+        <div class="container mx-auto">
+            <h2 class="fs-2 fw-bold text-center mb-4 text-white animate-fadeInUp">Our Menu</h2>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col">
+                    <div class="bg-white p-2 rounded-3 shadow-xl hover-scale animate-fadeInUp">
+                        <img src="https://ministryofcurry.com/wp-content/uploads/2024/06/vada-pav-9.jpg"
+                            style="height: 400px;" alt="Classic Vada Pav"
+                            class="w-100 h-48 object-fit-cover rounded-3 mb-3">
+                        <h3 class="fs-4 fw-semibold text-danger">Classic Vada Pav</h3>
+                        <p class="text-muted">Spiced potato fritter with chutneys</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="bg-white p-2 rounded-3 shadow-xl hover-scale animate-fadeInUp animation-delay-200">
+                        <img src="https://dms.mydukaan.io/original/jpeg/182206/74ccff9b-7f38-469e-8fca-68a4551fdfb4.png"
+                            alt="Cheese Burst Vada Pav" class="w-100 h-48 object-fit-cover rounded-3 mb-3">
+                        <h3 class="fs-4 fw-semibold text-danger">Cheese Burst Vada Pav</h3>
+                        <p class="text-muted">Loaded with gooey cheese inside</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="bg-white p-2 rounded-3 shadow-xl hover-scale animate-fadeInUp animation-delay-600">
+                        <img src="https://b.zmtcdn.com/data/dish_photos/a6e/eba486a51d4af6197aa9ee49036e3a6e.jpeg"
+                            alt="Spicy Schezwan Vada Pav" class="w-100 h-48 object-fit-cover rounded-3 mb-3">
+                        <h3 class="fs-4 fw-semibold text-danger">Spicy Schezwan Vada Pav</h3>
+                        <p class="text-muted">For those who like it hot!</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="bg-white p-2 rounded-3 shadow-xl hover-scale animate-fadeInUp animation-delay-400">
+                        <img src="https://media-cdn.tripadvisor.com/media/photo-s/10/c7/43/e6/paneer-vada-pav.jpg"
+                            alt="Paneer Vada Pav" class="w-100 h-48 object-fit-cover rounded-3 mb-3">
+                        <h3 class="fs-4 fw-semibold text-danger">Paneer Vada Pav</h3>
+                        <p class="text-muted">Fusion of flavors with crispy paneer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="menu.html" target="_blank"
+                    class="text-white fs-5 fw-semibold text-decoration-none hover-text-warning transition-all duration-300 animate-fadeInUp animation-delay-800">See
+                    Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Preview Section -->
+    <section class="container mx-auto py-5">
+        <h2 class="fs-2 fw-bold text-center mb-4 text-danger animate-fadeInUp">Get in Touch</h2>
+        <p class="fs-5 text-center mx-auto animate-fadeInUp animation-delay-200" style="max-width: 42rem;">Craving a
+            bite? Visit us at your nearest outlet or drop a message!</p>
+        <div class="text-center mt-4">
+            <a href="contact.html" target="_blank"
+                class="btn bg-danger text-white px-5 py-3 rounded-pill fs-5 fw-semibold hover-bg-danger-dark transition-all duration-300 animate-pulse">Contact
+                Us</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-danger text-white text-center py-4">
+        <p class="fs-5 animate-fadeInUp">© 2025 VadaPav Wala. Made with ❤️ in Mumbai.</p>
+        <a href="#top" class="back-to-top" aria-label="Back to top">Back to Top</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+
+                // Prevent scrolling when menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.container') && navMenu.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

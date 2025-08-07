@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locations - VadaPav Wala</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous" />
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fadeInUp {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-400 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-600 {
+      animation-delay: 0.6s;
+    }
+
+    .delay-800 {
+      animation-delay: 0.8s;
+    }
+
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+
+    .hover-scale:hover,
+    .hover-scale:focus {
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .animate-pulse {
+      animation: pulse 2s infinite;
+    }
+
+    a:focus,
+    button:focus {
+      outline: 3px solid #ffcc00;
+      outline-offset: 2px;
+    }
+
+    iframe {
+      border: 0;
+      border-radius: 8px;
+      width: 100%;
+      height: 250px;
+    }
+
+    .bg-gradient-to-b {
+      background: linear-gradient(to bottom, #fefcbf, #fca5a5);
+    }
+
+    .bg-gradient-to-r {
+      background: linear-gradient(to right, #dc2626, #eab308);
+    }
+
+    .shadow-xl {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .bg-opacity-60 {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .drop-shadow-lg {
+      filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+    }
+
+    .object-fit-cover {
+      object-fit: cover;
+    }
+
+    .h-64 {
+      height: 16rem;
+    }
+
+    /* Hamburger icon styles */
+    .hamburger {
+      display: none;
+    }
+
+    .bar {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 5px 0;
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 576px) {
+
+      /* Navigation */
+      nav .container {
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      }
+
+      nav .navbar-brand {
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+      }
+
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        position: absolute;
+        right: 10%;
+        transform: translateX(-50%);
+        top: 0.2rem;
+        z-index: 1000;
+      }
+
+      .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #dc2626;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem;
+        z-index: 999;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      nav .nav-link {
+        font-size: 1rem;
+        padding: 0.5rem;
+        text-align: center;
+      }
+
+      nav .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      nav .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      /* Hero Section */
+      .bg-cover {
+        height: 18rem;
+      }
+
+      .bg-cover h2 {
+        font-size: 2rem;
+      }
+
+      .bg-cover p {
+        font-size: 1rem;
+        max-width: 90%;
+      }
+
+      .bg-cover .bg-opacity-60 {
+        padding: 1.5rem;
+      }
+
+      /* Outlets Section */
+      .container h2 {
+        font-size: 1.5rem;
+      }
+
+      .row.row-cols-1.row-cols-md-3 {
+        row-gap: 1rem;
+      }
+
+      .row .bg-white {
+        padding: 1rem;
+      }
+
+      .row iframe {
+        height: 150px;
+      }
+
+      .row h3 {
+        font-size: 1.2rem;
+      }
+
+      .row p {
+        font-size: 0.9rem;
+      }
+
+      /* Hours Section */
+      .bg-gradient-to-r h2 {
+        font-size: 1.5rem;
+      }
+
+      .bg-gradient-to-r .bg-white {
+        padding: 1rem;
+      }
+
+      .bg-gradient-to-r .fs-5 {
+        font-size: 1rem !important;
+      }
+
+      /* Visit Us Section */
+      .container .fs-5 {
+        font-size: 1rem;
+      }
+
+      .container img {
+        height: 10rem !important;
+      }
+
+      .container .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      }
+
+      /* Footer */
+      footer p,
+      footer a {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (min-width: 577px) and (max-width: 768px) {
+
+      /* Navigation */
+      nav .container {
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      }
+
+      nav .navbar-brand {
+        font-size: 2rem;
+        width: 100%;
+        text-align: center;
+      }
+
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        cursor: pointer;
+        position: absolute;
+        right: 8%;
+        transform: translateX(-50%);
+        top: 0.2rem;
+        z-index: 1000;
+      }
+
+      .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #dc2626;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem;
+        z-index: 999;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      nav .nav-link {
+        font-size: 1.1rem;
+        padding: 0.75rem;
+        text-align: center;
+      }
+
+      nav .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      }
+
+      nav .d-flex {
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      /* Hero Section */
+      .bg-cover {
+        height: 20rem;
+      }
+
+      .bg-cover h2 {
+        font-size: 2.5rem;
+      }
+
+      .bg-cover p {
+        font-size: 1.1rem;
+        max-width: 80%;
+      }
+
+      .bg-cover .bg-opacity-60 {
+        padding: 2rem;
+      }
+
+      /* Outlets Section */
+      .container h2 {
+        font-size: 1.8rem;
+      }
+
+      .row.row-cols-1.row-cols-md-3 {
+        row-cols-2;
+        row-gap: 1.5rem;
+      }
+
+      .row .bg-white {
+        padding: 1.5rem;
+      }
+
+      .row iframe {
+        height: 200px;
+      }
+
+      .row h3 {
+        font-size: 1.4rem;
+      }
+
+      .row p {
+        font-size: 1rem;
+      }
+
+      /* Hours Section */
+      .bg-gradient-to-r h2 {
+        font-size: 1.8rem;
+      }
+
+      .bg-gradient-to-r .bg-white {
+        padding: 1.5rem;
+      }
+
+      .bg-gradient-to-r .fs-5 {
+        font-size: 1.1rem !important;
+      }
+
+      /* Visit Us Section */
+      .container .fs-5 {
+        font-size: 1.1rem;
+      }
+
+      .container img {
+        height: 12rem !important;
+      }
+
+      .container .btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+      }
+
+      /* Footer */
+      footer p,
+      footer a {
+        font-size: 1rem;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .hamburger {
+        display: none;
+      }
+
+      .nav-menu {
+        display: flex !important;
+      }
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #FFD700;
+      /* Primary yellow background */
+      color: #1C2526;
+      /* Dark text for contrast */
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-to-top:hover {
+      background-color: #FFFFFF;
+      /* White background on hover */
+      color: #1C2526;
+      /* Maintain dark text */
+      transform: translateY(-2px);
+      /* Slight lift effect */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .back-to-top:focus {
+      outline: none;
+      background-color: #FFFFFF;
+      /* White background on focus */
+      color: #1C2526;
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
+      /* Focus ring */
+    }
+  </style>
+</head>
+
+<body id="top" class="font-sans bg-gradient-to-b overflow-x-hidden">
+  <!-- Navigation -->
+  <nav class="bg-danger text-white p-4 sticky-top shadow-lg" role="navigation" aria-label="Main navigation">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <h1 class="navbar-brand fw-bold fs-3 animate-fadeInUp">VadaPav Wala</h1>
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="nav nav-menu flex-column flex-md-row gap-2 gap-md-4 mt-4 mt-md-0">
+        <li class="nav-item"><a href="index.html" class="nav-link text-white" aria-label="Home page">Home</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link text-white" aria-label="About page">About</a></li>
+        <li class="nav-item"><a href="menu.html" class="nav-link text-white" aria-label="Menu page">Menu</a></li>
+        <li class="nav-item"><a href="locations.html" class="nav-link text-warning"
+            aria-label="Current page: Locations">Locations</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link text-white" aria-label="Contact page">Contact</a>
+        </li>
+        <li class="nav-item"><a href="order.html" class="nav-link text-white" aria-label="Order Online page">Order
+            Online</a></li>
+        <li class="nav-item d-flex gap-2 mt-2 mt-md-0">
+          <a href="login.html" target="_blank"
+            class="btn bg-warning text-black px-4 py-2 rounded-pill hover-bg-warning-dark focus-bg-warning-dark transition-all duration-300"
+            aria-label="Log in">Log In</a>
+          <a href="signup.html" target="_blank"
+            class="btn bg-white text-danger px-4 py-2 rounded-pill hover-bg-light focus-bg-light transition-all duration-300"
+            aria-label="Sign up">Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-cover bg-center"
+    style="height: 24rem; background-image: url('https://source.unsplash.com/random/1600x900/?mumbai-street');">
+    <div class="d-flex align-items-center justify-content-center h-100 position-relative">
+      <div class="text-center text-white bg-opacity-60 p-5 rounded-3 animate-fadeInUp">
+        <h2 class="fs-1 fw-bold mb-4 drop-shadow-lg">Find Us</h2>
+        <p class="fs-5 mx-auto" style="max-width: 28rem;">Visit our outlets across Mumbai for a taste of authentic vada
+          pav!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outlets Section -->
+  <section class="container py-5 animate-fadeInUp delay-200" role="region" aria-label="Our Outlets">
+    <h2 class="fs-2 fw-bold text-center mb-4 text-danger">Our Outlets</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <!-- Colaba -->
+      <div class="col">
+        <div class="bg-white p-4 rounded-3 shadow-xl hover-scale h-100">
+          <iframe src="https://www.google.com/maps/embed?pb=..." title="Colaba Outlet" loading="lazy"></iframe>
+          <h3 class="fs-5 fw-semibold text-danger mt-3">Colaba Outlet</h3>
+          <p class="text-muted">Shop 5, Apollo Bunder, Colaba, Mumbai, Maharashtra 400001</p>
+          <p class="text-muted">Phone: +91 22 1234 5678</p>
+          <a href="order.html" target="_blank" class="d-inline-block text-danger fw-semibold text-decoration-none">Order
+            Now</a>
+        </div>
+      </div>
+      <!-- Bandra -->
+      <div class="col">
+        <div class="bg-white p-4 rounded-3 shadow-xl hover-scale h-100">
+          <iframe src="https://www.google.com/maps/embed?pb=..." title="Bandra Outlet" loading="lazy"></iframe>
+          <h3 class="fs-5 fw-semibold text-danger mt-3">Bandra Outlet</h3>
+          <p class="text-muted">12A, Bandstand Road, Bandra West, Mumbai, Maharashtra 400050</p>
+          <p class="text-muted">Phone: +91 22 8765 4321</p>
+          <a href="order.html" target="_blank" class="d-inline-block text-danger fw-semibold text-decoration-none">Order
+            Now</a>
+        </div>
+      </div>
+      <!-- Juhu -->
+      <div class="col">
+        <div class="bg-white p-4 rounded-3 shadow-xl hover-scale h-100">
+          <iframe src="https://www.google.com/maps/embed?pb=..." title="Juhu Outlet" loading="lazy"></iframe>
+          <h3 class="fs-5 fw-semibold text-danger mt-3">Juhu Outlet</h3>
+          <p class="text-muted">45, Juhu Beach Road, Juhu, Mumbai, Maharashtra 400049</p>
+          <p class="text-muted">Phone: +91 22 9876 5432</p>
+          <a href="order.html" target="_blank" class="d-inline-block text-danger fw-semibold text-decoration-none">Order
+            Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hours Section -->
+  <section class="bg-gradient-to-r py-5 animate-fadeInUp delay-400" role="region" aria-label="Operating Hours">
+    <div class="container">
+      <h2 class="fs-2 fw-bold text-center mb-4 text-white">Operating Hours</h2>
+      <div class="bg-white p-4 rounded-3 shadow-xl mx-auto" style="max-width: 42rem;">
+        <ul class="text-muted fs-5 list-unstyled">
+          <li class="d-flex justify-content-between py-2"><span>Monday - Friday</span><span>10:00 AM - 10:00 PM</span>
+          </li>
+          <li class="d-flex justify-content-between py-2"><span>Saturday - Sunday</span><span>9:00 AM - 11:00 PM</span>
+          </li>
+          <li class="d-flex justify-content-between py-2"><span>Public Holidays</span><span>9:00 AM - 10:00 PM</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit Us Section -->
+  <section class="container py-5 animate-fadeInUp delay-600" role="region" aria-label="Visit Us">
+    <h2 class="fs-2 fw-bold text-center mb-4 text-danger">Visit Us</h2>
+    <div class="row align-items-center g-4">
+      <div class="col-md-6">
+        <img src="img/exterior.jpg" alt="Outlet exterior" class="w-100 h-64 object-fit-cover rounded-3 hover-scale"
+          loading="lazy">
+      </div>
+      <div class="col-md-6">
+        <p class="fs-5 text-secondary">Craving the authentic taste of Mumbai's vada pav? Stop by any of our outlets or
+          order online for a quick and delicious meal. We can't wait to serve you!</p>
+        <a href="order.html" target="_blank"
+          class="btn bg-danger text-white px-5 py-3 rounded-pill fs-5 fw-semibold animate-pulse">Order Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-danger text-white text-center py-4" role="contentinfo">
+    <p class="fs-5 animate-fadeInUp">© 2025 VadaPav Wala. Made with ❤️ in Mumbai.</p>
+    <a href="#top" class="back-to-top" aria-label="Back to top">Back to Top</a>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.querySelector('.hamburger');
+      const navMenu = document.querySelector('.nav-menu');
+
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navMenu.classList.remove('active');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

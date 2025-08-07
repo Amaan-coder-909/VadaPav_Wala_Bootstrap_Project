@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - VadaPav Wala</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        /* Custom colors to match VadaPav Wala theme */
+        :root {
+            --primary-red: #dc3545;
+            --primary-yellow: #ffc107;
+            --dark-gray: #343a40;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #fff3cd, #f8d7da);
+        }
+
+        /* Custom animation for fade-in */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-800 {
+            animation-delay: 0.8s;
+        }
+
+        /* Hover scale effect */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-scale:hover,
+        .hover-scale:focus {
+            transform: scale(1.05);
+        }
+
+        /* Pulse animation for buttons */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Focus styles for accessibility */
+        a:focus,
+        button:focus,
+        input:focus {
+            outline: 3px solid var(--primary-yellow);
+            outline-offset: 2px;
+        }
+
+        /* Custom navbar and button styles */
+        .navbar,
+        .btn-primary {
+            background-color: var(--primary-red) !important;
+            border-color: var(--primary-red) !important;
+        }
+
+        .navbar-brand,
+        .nav-link,
+        .btn-primary {
+            color: white !important;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--primary-yellow) !important;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #c82333 !important;
+            border-color: #c82333 !important;
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-yellow) !important;
+            border-color: var(--primary-yellow) !important;
+            color: var(--dark-gray) !important;
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background-color: #e0a800 !important;
+            border-color: #e0a800 !important;
+        }
+
+        /* Tailwind-equivalent styles not directly available in Bootstrap */
+        .tracking-tight {
+            letter-spacing: -0.025em;
+        }
+
+        .shadow-xl {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .bg-opacity-50 {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .drop-shadow-lg {
+            filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1));
+        }
+
+        .w-25 {
+            width: 25px;
+        }
+
+        .h-25 {
+            height: 25px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFD700;
+            /* Primary yellow background */
+            color: #1C2526;
+            /* Dark text for contrast */
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top:hover {
+            background-color: #FFFFFF;
+            /* White background on hover */
+            color: #1C2526;
+            /* Maintain dark text */
+            transform: translateY(-2px);
+            /* Slight lift effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top:focus {
+            outline: none;
+            background-color: #FFFFFF;
+            /* White background on focus */
+            color: #1C2526;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
+            /* Focus ring */
+        }
+    </style>
+</head>
+
+<body id="top">
+    <!-- Navigation -->
+    <nav class="bg-danger text-white p-4 sticky-top shadow-lg" role="navigation" aria-label="Main navigation">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <h1 class="display-6 fw-bold animate-fadeInUp"><a href="index.html"
+                    style="text-decoration: none; color: white;">VadaPav Wala</a></h1>
+
+            <div class="d-flex gap-2 mt-4 mt-md-0">
+                <a href="login.html" target="_blank"
+                    class="btn text-warning px-4 py-2 rounded-pill transition-all duration-300 shadow-sm"
+                    style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); transform: scale(0.97); border: 3px solid #ffc107;"
+                    aria-label="Log in">
+                    Log In
+                </a>
+
+                <a href="signup.html" target="_blank"
+                    class="btn bg-white text-danger px-4 py-2 rounded-pill hover-bg-light focus-bg-light transition-all duration-300"
+                    aria-label="Sign up">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-cover bg-center py-5 text-center text-white"
+        style="background-image: url('https://source.unsplash.com/random/1600x900/?vada-pav');">
+        <div class="container py-5 animate-fadeInUp">
+            <div class="bg-dark bg-opacity-50 p-5 rounded-3">
+                <h2 class="display-4 fw-bold text-white mb-3 drop-shadow-lg">Log In</h2>
+                <p class="lead mb-0">Access your account to order your favorite vada pav with ease!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Form Section -->
+    <section class="container py-5 animate-fadeInUp delay-200" role="region" aria-label="Login Form">
+        <h2 class="display-6 fw-bold text-center mb-4 text-primary-red">Sign In to Your Account</h2>
+        <div class="card shadow-xl mx-auto hover-scale" style="max-width: 500px;">
+            <div class="card-body p-4" role="form" aria-label="Login form (non-functional)">
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold text-dark">Email</label>
+                    <input type="email" class="form-control rounded-3" id="email" placeholder="Your Email"
+                        aria-required="true">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-semibold text-dark">Password</label>
+                    <input type="password" class="form-control rounded-3" id="password" placeholder="Your Password"
+                        aria-required="true">
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary px-5 py-2 rounded-pill fw-semibold animate-pulse"
+                        aria-label="Log in (non-functional)">Log In</button>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="signup.html" target="_blank"
+                        class="text-primary-red fw-semibold text-decoration-none hover-text-dark transition-all duration-300"
+                        aria-label="Create a new account">Don't have an account? Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Account Benefits Section -->
+    <section class="bg-primary-red text-white py-5 animate-fadeInUp delay-400" role="region"
+        aria-label="Account Benefits">
+        <div class="container">
+            <h2 class="display-6 fw-bold text-center text-black mb-4">Why Log In?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-xl hover-scale">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_daTUcDw7UP_GwezVq6JNcURkk1X-uYzqfg&s"
+                            class="card-img-top" alt="Quick ordering" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-semibold text-primary-red">Quick Ordering</h3>
+                            <p class="card-text text-dark">Save your favorite orders for faster checkout.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-xl hover-scale">
+                        <img src="https://static.vecteezy.com/system/resources/previews/013/021/623/non_2x/exclusive-offer-banner-design-modern-style-web-element-vector.jpg"
+                            class="card-img-top" alt="Exclusive offers" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-semibold text-primary-red">Exclusive Offers</h3>
+                            <p class="card-text text-dark">Unlock special discounts and loyalty rewards.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-xl hover-scale">
+                        <img src="https://img.freepik.com/premium-vector/concept-online-delivery-service-online-order-tracking-home-office-delivery_148553-295.jpg"
+                            class="card-img-top" alt="Track orders" loading="lazy">
+                        <div class="card-body">
+                            <h3 class="card-title h5 fw-semibold text-primary-red">Track Orders</h3>
+                            <p class="card-text text-dark">Stay updated on your order status in real-time.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sign Up Prompt Section -->
+    <section class="container py-5 animate-fadeInUp delay-600" role="region" aria-label="Sign Up Prompt">
+        <h2 class="display-6 fw-bold text-center mb-4 text-primary-red">New to VadaPav Wala?</h2>
+        <div class="row align-items-center">
+
+            <!-- Image on the Left -->
+            <div class="col-md-6">
+                <div style="height: 550px; overflow: hidden; border-radius: 0.75rem;">
+                    <img src="img/review.png" alt="Customer enjoying vada pav" class="img-fluid w-100 h-100"
+                        style="object-fit: cover;" loading="lazy">
+                </div>
+            </div>
+
+            <!-- Content on the Right -->
+            <div class="col-md-6">
+                <p class="lead text-dark">
+                    Join our community to enjoy exclusive offers, quick ordering, and the best
+                    vada pav experience. Sign up today!
+                </p>
+                <div class="mt-4">
+                    <a href="signup.html" target="_blank"
+                        class="btn btn-secondary px-5 py-2 rounded-pill fw-semibold animate-pulse"
+                        aria-label="Sign up now">Sign Up Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-primary-red text-white text-center py-4" role="contentinfo">
+        <p class="lead mb-2 animate-fadeInUp">© 2025 VadaPav Wala. Made with ❤️ in Mumbai.</p>
+        <a href="#top" class="back-to-top" aria-label="Back to top">Back to Top</a>
+    </footer>
+</body>
+
+</html>
